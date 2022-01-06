@@ -11,3 +11,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.btns {
+  padding: 0 3px;
+  outline:none;
+  background: none;
+  border: none;
+  color: #fff;
+}
+.btn:hover {
+  
+  color: #ccc;
+}
+.btn__createNote {
+ margin: 0 auto;
+ text-align: center;
+}

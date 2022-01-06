@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { parseDates } from "../utilites";
 
 const notesSlice = createSlice({
 	name: 'noteStore',
 	initialState: {
-		notes = [
+		notes : [
 			{
 			  id: 1,
 			  name: "Shopping list",
@@ -60,7 +61,7 @@ const notesSlice = createSlice({
 			  active: false,
 			},
 		  ],
-	category = [
+		category : [
 			{
 			  name: "Task",
 			  icon: "fas fa-shopping-cart",
@@ -77,12 +78,56 @@ const notesSlice = createSlice({
 			  name: "Idea",
 			  icon: "far fa-lightbulb",
 			},
-		  ]
+		  ],
+		 
 	},
 	reducers: {
-		addNote(state, action) {},
-		removeNote(state, action) {},
-		editNote(state, action) {},
-		archiveNote(state, action) {}
+		addNote(state, action) {
+			let {category, name, content, id} = action.payload;
+			if(id) {
+							let editNotes = state.notes.map(item => {
+					if(item.id === id) {
+						item.content = content;
+						item.dates = parseDates(content);
+						item.name = name;
+						item.category= [
+							category.split(" ")[0],
+							category.split(" ")[1] + " " + category.split(" ")[2],
+						  ];
+						  return item;
+					}
+					return item
+				})
+				state.notes = editNotes;
+				return;
+			}
+			let newTask = {
+					id: new Date().toISOString(),
+					name:name,
+					created: new Date().toString().split(" ").splice(1, 3).join(" "),
+					category: [
+						category.split(" ")[0],
+						category.split(" ")[1] + " " + category.split(" ")[2],
+					  ],
+					  content: content,
+					dates: parseDates(content),
+					active: true,
+				  
+			};
+		
+			state.notes.push(newTask);
+		},
+		removeNote(state, action) {
+				state.notes = state.notes.filter(item => item.id !== action.payload)
+		},
+		
+		archiveNote(state, action) {
+
+		},
+		
 	}
-})
+});
+
+export const {addNote, removeNote, archiveNote} = notesSlice.actions;
+
+export default notesSlice.reducer;
