@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Row, Col } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import ModalWindow from "./components/Modal";
 import Tables from "./components/Tables";
@@ -11,17 +11,19 @@ function App() {
   /*=============HandleModal=============*/
   const [show, setShow] = React.useState(false);
   const dispatch = useDispatch();
-
   const handleClose = () => {
     setShow(false);
     dispatch(resetAll())
   } 
   const handleShow = () => setShow(true);
 /*=============HandleModal=============*/
+const titleForApp = useSelector(state => state.notesReducer.archiveMode);
+
 
   return (
     <div className="container">
-      <h2 className="text-center">Notes APP</h2>
+      {titleForApp ?  <h2 className="text-center">Archive notes</h2>:  <h2 className="text-center">Notes APP</h2> }
+     
 
       <Tables
         theadTitle={["Name", "Created", "Category", "Content", "Dates"]}

@@ -1,15 +1,15 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addNote } from "../store/notesSlice";
-import { Button, Form } from "react-bootstrap";
-import { useSelector } from "react-redux";
 import {resetAll, setCategory, setContent, setName} from "../store/inputsSlice";
+import { Button, Form } from "react-bootstrap";
+
 
 const Forms = ({ handleClose }) => {
+
   const { name, content, category, id } = useSelector(
     (state) => state.inputsSlice.inputs
   );
-
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {

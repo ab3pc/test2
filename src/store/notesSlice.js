@@ -53,10 +53,19 @@ const notesSlice = createSlice({
       },
       {
         id: 6,
-        name: "Archived",
+        name: "Archived Archived",
         created: "Jan 01, 2021",
         category: ["Task", "fas fa-shopping-cart"],
         content: "I haven't no idea :)",
+        dates: "",
+        active: false,
+      },
+      {
+        id: 7,
+        name: "Another Archived notes",
+        created: "Jan 03, 2022",
+        category: ["Quote", "fas fa-quote-right"],
+        content: "I need more information",
         dates: "",
         active: false,
       },
@@ -83,6 +92,7 @@ const notesSlice = createSlice({
       notesCountActive: [],
       notesCountArc: [],
     },
+	archiveMode: false
 	
   },
   reducers: {
@@ -146,10 +156,13 @@ const notesSlice = createSlice({
         ).length;
       }
     },
+	setArchiveMode(state, action) {
+		state.archiveMode = !state.archiveMode;
+	}
   },
 });
 
-export const { addNote, removeNote, archiveNote, setTotalNotes} =
+export const { addNote, removeNote, archiveNote, setTotalNotes, setArchiveMode} =
   notesSlice.actions;
 
 export default notesSlice.reducer;

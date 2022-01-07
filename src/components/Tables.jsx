@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import TableItem from "./TableItem";
 import Table from "react-bootstrap/Table";
 import { getActiveTasks, getArchiveTask } from "../utilites";
-import { setTotalNotes } from "../store/notesSlice";
+import { setArchiveMode, setTotalNotes } from "../store/notesSlice";
 
 const Tables = ({ theadTitle, buttons, mode, handleShow }) => {
   const { notes, category, total } = useSelector((state) => state.notesReducer);
@@ -20,9 +20,11 @@ const Tables = ({ theadTitle, buttons, mode, handleShow }) => {
 
   const switchToArchive = () => {
     setRenderArchive(true);
+    dispatch(setArchiveMode());
   };
 
   const switchToActive = () => {
+    dispatch(setArchiveMode());
     setRenderArchive(false);
   };
 
