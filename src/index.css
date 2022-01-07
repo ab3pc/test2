@@ -26,3 +26,33 @@ code {
  margin: 0 auto;
  text-align: center;
 }
+.btn__tables {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  margin-right: 2px;
+   padding: 3px;
+  cursor: pointer;
+   text-align: center;
+ background-color: #fff;
+  color: #000;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+
+  transition: transform 0.2s linear ;
+}
+.btn__tables:hover {
+  transform: scale(1.1);
+}
+.btn__name {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  margin-right: 5px;
+   padding: 3px;
+   text-align: center;
+ background-color: #fff;
+  color: #000;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+}

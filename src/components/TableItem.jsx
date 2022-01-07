@@ -1,13 +1,13 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { setValues } from "../store/inputsSlice";
-import { removeNote } from "../store/notesSlice";
+import { archiveNote, removeNote} from "../store/notesSlice";
 
-const TableItem = ({ notes, category, handleShow }) => {
+const TableItem = ({ notes, category, handleShow, total }) => {
   const dispatch = useDispatch();
 
   const handleRemove = (id) => {
-    dispatch(removeNote(id));
+	      dispatch(removeNote(id));
   };
 
   const handleEdit = (id) => {
@@ -20,10 +20,13 @@ const TableItem = ({ notes, category, handleShow }) => {
         id: id,
       })
     );
-
     handleShow();
   };
-  
+
+  const handlePushToArchive = (id) => {
+         dispatch(archiveNote(id))
+  }
+
 
   return (
     <>
@@ -32,7 +35,7 @@ const TableItem = ({ notes, category, handleShow }) => {
           return (
             <tr id={item.id} key={item.id}>
               <th>
-                <i className={`${item.category[1]}`}></i>
+                <i className={`btn__name ${item.category[1]}`}></i>
                 <span>{item.name}</span>
               </th>
               <td>{item.created}</td>
@@ -48,7 +51,7 @@ const TableItem = ({ notes, category, handleShow }) => {
                 >
                   <i className="btn__edit fas fa-pencil-alt"></i>
                 </button>
-                <button className="btns">
+                <button className="btns" onClick = {() => handlePushToArchive(item.id)}>
                   <i className="fas fa-archive" id="btn__archive"></i>
                 </button>
                 <button onClick={() => handleRemove(item.id)} className="btns">
@@ -64,11 +67,11 @@ const TableItem = ({ notes, category, handleShow }) => {
           return (
             <tr key={index}>
               <th>
-                <i className={`${item.icon}`}></i>
+                <i className={`btn__name ${item.icon}`}></i>
                 <span>{item.name}</span>
               </th>
-              <td>num</td>
-              <td>num</td>
+              <td>{total.notesCountActive[index]}</td>
+              <td>{total.notesCountArc[index]}</td>
             </tr>
           );
         })}

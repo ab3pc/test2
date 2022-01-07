@@ -1,5 +1,9 @@
+
 export const getActiveTasks = (list) => {
 	return list.filter(item => item.active);
+}
+export const getArchiveTask = (list) => {
+	return list.filter(item => !item.active);
 }
 
 

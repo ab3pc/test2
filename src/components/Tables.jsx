@@ -1,37 +1,72 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import TableItem from "./TableItem";
 import Table from "react-bootstrap/Table";
-import { getActiveTasks } from "../utilites";
+import { getActiveTasks, getArchiveTask } from "../utilites";
+import { setTotalNotes } from "../store/notesSlice";
 
-const Tables = ({ theadTitle, buttons, mode,handleShow }) => {
-	const {notes, category} = useSelector(state => state.notesReducer);
+const Tables = ({ theadTitle, buttons, mode, handleShow }) => {
+  const { notes, category, total } = useSelector((state) => state.notesReducer);
+  const [renderArchive, setRenderArchive] = React.useState(false);
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(setTotalNotes());
+  }, [notes]);
+
+  let currentNotes = renderArchive
+    ? getArchiveTask(notes)
+    : getActiveTasks(notes);
+
+  const switchToArchive = () => {
+    setRenderArchive(true);
+  };
+
+  const switchToActive = () => {
+    setRenderArchive(false);
+  };
 
   return (
-         <Table striped bordered hover variant="dark">
-        <thead>
-          <tr>
-            {theadTitle &&
-              theadTitle.map((item,id) => {
-                return <th key = {id} scope="col">{item}</th>;
-              })}
+    <Table striped bordered hover variant="dark">
+      <thead>
+        <tr>
+          {theadTitle &&
+            theadTitle.map((item, id) => {
+              return (
+                <th key={id} scope="col">
+                  {item}
+                </th>
+              );
+            })}
 
-            {buttons && (
-              <th scope="col">
-                {buttons.map((btn,id) => {
-                  return <i key = {id} className={btn.icon} title={btn.name}></i>;
-                })}
-              </th>
-            )}
-          </tr>
-        </thead>
+          {buttons && (
+            <th scope="col" className="text-center">
+              <i
+                onClick={switchToActive}
+                className={`btn__tables ${buttons[0].icon}`}
+                title={buttons[0].name}
+              ></i>
+              <i
+                onClick={switchToArchive}
+                className={`btn__tables ${buttons[1].icon}`}
+                title={buttons[1].name}
+              ></i>
 
-        <tbody id="table__body">
-			{mode === "main" && <TableItem handleShow={handleShow} notes = {getActiveTasks(notes)}/>}
-			{mode === "summary" && <TableItem category = {category} />}
-			</tbody>
-      </Table>
-   
+              {/* {buttons.map((btn,id) => {
+                  return <i onClick={switchToArchive} key = {id} className={`btn__tables ${btn.icon}`} title={btn.name}></i>;
+                })} */}
+            </th>
+          )}
+        </tr>
+      </thead>
+
+      <tbody id="table__body">
+        {mode === "main" && (
+          <TableItem handleShow={handleShow} notes={currentNotes} />
+        )}
+        {mode === "summary" && <TableItem category={category} total={total} />}
+      </tbody>
+    </Table>
   );
 };
 
