@@ -12,11 +12,12 @@ const TableItem = ({ notes, category, handleShow, total }) => {
 
   const handleEdit = (id) => {
     let currentNote = notes.find((item) => item.id === id);
+
     dispatch(
       setValues({
         name: currentNote.name,
         content: currentNote.content,
-        category: currentNote.category.join(" "),
+        category: currentNote.category,
         id: id,
       })
     );
@@ -35,11 +36,11 @@ const TableItem = ({ notes, category, handleShow, total }) => {
           return (
             <tr id={item.id} key={item.id}>
               <th>
-                <i className={`btn__name ${item.category[1]}`}></i>
+                <i className={`btn__name ${item.category.icon}`}></i>
                 <span>{item.name}</span>
               </th>
               <td>{item.created}</td>
-              <td>{item.category[0]}</td>
+              <td>{item.category.name}</td>
               <td>{item.content}</td>
               <td>{item.dates}</td>
               <td>

@@ -14,9 +14,9 @@ const Forms = ({ handleClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    e.stopPropagation();
-
-    dispatch(addNote({ category, name, content, id }));
+    e.stopPropagation();  
+    console.log(category)
+     dispatch(addNote({ category, name, content, id }));
     handleClose();
     dispatch(resetAll());
   };
@@ -58,10 +58,10 @@ const Forms = ({ handleClose }) => {
         name="category"
         aria-label="Default select example"
       >
-        <option value="Task fas fa-shopping-cart">Task</option>
-        <option value="Random fas fa-brain">Random</option>
-        <option value="Quote fas fa-quote-right">Quote</option>
-        <option value="Idea far fa-lightbulb">Idea</option>
+        <option value="task">Task</option>
+        <option value="random">Random</option>
+        <option value="quote">Quote</option>
+        <option value="idea">Idea</option>
       </Form.Select>
       <Form.Control name="id" hidden />
 

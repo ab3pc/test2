@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { addIconName } from "../utilites";
 
 const inputsSlice = createSlice({
   name: "inputsSlice",
   initialState: {
     inputs: 
-      { name: "", content: "", category: "Random fas fa-brain", id: "" },
+      { name: "", content: "", category: "idea", id: "" },
     
   },
   reducers: {
@@ -15,7 +16,10 @@ const inputsSlice = createSlice({
       state.inputs.content = action.payload;
     },
     setCategory(state, action) {
-      state.inputs.category = action.payload;
+       //const {name, icon} = addIconName(action.payload);
+   
+      state.inputs.category=action.payload;
+    
      
     },
     setId(state, action) {
@@ -24,16 +28,16 @@ const inputsSlice = createSlice({
     },
     setValues(state, action) {
 		let {name, content, id, category} = action.payload;
-		state.inputs.name = name;
+ 		  state.inputs.name = name;
+      state.inputs.category = category.name.toLowerCase();
       state.inputs.content = content;
-      state.inputs.category = category;
       state.inputs.id = id;
     },
 
     resetAll(state, action) {
       state.inputs.name = "";
       state.inputs.content = "";
-      state.inputs.category = "Random fas fa-brain";
+      state.inputs.category = "random";
       state.inputs.id = "";
     },
   },

@@ -31,3 +31,28 @@ export const parseDates = (content) => {
   
   return strDates;
 };
+
+//Added icon to object for correctly display icons
+
+export const addIconName = (name) => {
+  let iconName = {
+    task:  {
+      name: "Task",
+      icon: "fas fa-shopping-cart",
+    },
+    random:{
+      name: "Random",
+      icon: "fas fa-brain",
+    },
+    quote:{
+      name: "Quote",
+      icon: "fas fa-quote-right",
+    },
+    idea: {
+      name: "Idea",
+      icon: "far fa-lightbulb",
+    }
+  };
+  return iconName[`${name}`]
+}
+

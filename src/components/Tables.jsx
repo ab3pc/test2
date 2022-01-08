@@ -7,25 +7,24 @@ import { setArchiveMode, setTotalNotes } from "../store/notesSlice";
 
 const Tables = ({ theadTitle, buttons, mode, handleShow }) => {
   const { notes, category, total } = useSelector((state) => state.notesReducer);
-  const [renderArchive, setRenderArchive] = React.useState(false);
+
+  const [showAcrhive , setShowArchive] = React.useState(false);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     dispatch(setTotalNotes());
   }, [notes]);
 
-  let currentNotes = renderArchive
-    ? getArchiveTask(notes)
-    : getActiveTasks(notes);
+  let currentNotes = showAcrhive ? getArchiveTask(notes) : getActiveTasks(notes);
 
   const switchToArchive = () => {
-    setRenderArchive(true);
+    setShowArchive(true);
     dispatch(setArchiveMode());
   };
 
   const switchToActive = () => {
     dispatch(setArchiveMode());
-    setRenderArchive(false);
+    setShowArchive(false);
   };
 
   return (
